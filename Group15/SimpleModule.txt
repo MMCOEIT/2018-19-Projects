@@ -1,0 +1,14 @@
+title SimpleModule
+
+User->System:Login
+System->SqlDatabase:Validate
+SqlDatabase->SqlDatabase:Verification
+SqlDatabase->System:User Verified
+System->User:Login Successful
+User->System:Upload Files
+System->Hadoop:Encrypted Data
+Hadoop->Hadoop:Analysis
+Hadoop->System:Data Stored
+System->User:Data uploaded
+User->System:Logout
+System->User:Logout Successful

@@ -1,8 +1,8 @@
 Group 16
 
-Title:
+Title:Netspam Detection
 
-Members:
+Members:Kalyani Patil,Rutuja Fakire,Pallavi Agwane,Arti rode
 
-Project Guide:
+Project Guide:MRS.Pranjali Kuche
 
