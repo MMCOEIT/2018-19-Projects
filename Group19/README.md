@@ -1,8 +1,8 @@
 Group 19
 
-Title:
+Title:Conversion Of Handwritten Document In to Digitalform
 
-Members:
+Members:Manjiree Mane,Shamal Aware,Priyanka Labade
 
-Project Guide:
+Project Guide:Mr.Sudhanshu Gonge
 
