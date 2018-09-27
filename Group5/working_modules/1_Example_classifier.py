@@ -15,12 +15,6 @@ import pandas as pd
 unsw = pd.read_csv('UNSW_training-set.csv')
 
 
-# In[47]:
-
-
-unsw.tail()
-
-
 # In[48]:
 
 
