@@ -217,7 +217,7 @@ my_pred
 # In[32]:
 
 
-embedded_group_col = tf.feature_column.embedding_column(assigned_grp, dimension=9)
+embedded_group_col = tf.feature_column.embedding_column(assigned_grp, dimension=2)
 
 
 # In[33]:
@@ -235,7 +235,7 @@ input_func = tf.estimator.inputs.pandas_input_fn(X_train, y_train, batch_size=10
 # In[35]:
 
 
-dnn_model = tf.estimator.DNNClassifier(hidden_units=[3,5,3], feature_columns=feat_cols, n_classes=9)
+dnn_model = tf.estimator.DNNClassifier(hidden_units=[3,5,3], feature_columns=feat_cols, n_classes=2)
 
 
 # In[36]:
