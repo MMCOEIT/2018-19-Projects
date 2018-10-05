@@ -1,18 +1,28 @@
-title Analysis of performance of ML Algorithms and Neural Nets for Malware Classification
-
-User->Computer System:Boots up
+title Analysis of performance of ML Algorithms and Neural Nets for Cyber Security related Classification
+activate User
+User->Computer System:Boot up
+deactivate User
 activate Computer System
-activate Malware CLassifier
-Malware CLassifier->Malware CLassifier:Check_and_classify_files()
-Computer System<-Malware CLassifier:SendStatus()
-
-User<-Computer System:ShowResults()
-User->Malware CLassifier:remove/keep_files()
-
-
-
-
-Malware CLassifier->Malware CLassifier:ExecuteAction()
-Computer System<-Malware CLassifier:Return void()
-deactivate Malware CLassifier
-User<-Computer System:Return void()
+Computer System->Detection Layer:Input the dataset
+activate Detection Layer
+Detection Layer->Detection Layer:Train various neural networks for detection
+Computer System<--Detection Layer:return void
+deactivate Detection Layer
+Computer System->Computer System:Modify dataset(Remove benign data points)
+Computer System->Classification Layer:Input modified dataset
+activate Classification Layer
+Classification Layer ->Classification Layer:Train various networks for Classification
+activate Detection Layer
+Detection Layer->Performance Analysis: Send  detection results
+activate Performance Analysis
+deactivate Detection Layer
+Performance Analysis->Performance Analysis:Produce matrix evaluation (Detection x Classification)
+Classification Layer->Performance Analysis: Send  classification results
+deactivate Classification Layer
+Performance Analysis->Computer System: Send results
+deactivate Performance Analysis
+Computer System->User:Publish results
+deactivate Computer System
+activate User
+User->User:Select preferred choice
+deactivate User
