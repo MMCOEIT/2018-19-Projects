@@ -3,6 +3,7 @@ activate User
 User->Computer System:Boot up
 deactivate User
 activate Computer System
+Computer System->Computer System:Perform feature selection
 Computer System->Detection Layer:Input the dataset
 activate Detection Layer
 Detection Layer->Detection Layer:Train various neural networks for detection
