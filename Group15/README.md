@@ -1,6 +1,6 @@
 Group 15
 
-Title: Security framework for e-Health data
+Title: Security and Privacy in Smart Health: Efficient Policy-Hiding Attribute-Based Access Control
 
 Members:
 Pranjali Nehe,

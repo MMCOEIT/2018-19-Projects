@@ -1,8 +1,8 @@
 Group 11
 
-Title:
+Title:Depression detection using voice
 
-Members:
+Members:Sukrut Dani, Pratiksha Nandre, Shubham Pansare, Mitali Yeware
 
-Project Guide:
+Project Guide:Prof.Pratik Kamble
 

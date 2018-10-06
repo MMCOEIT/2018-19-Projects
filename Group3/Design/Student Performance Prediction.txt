@@ -1,0 +1,10 @@
+title Student Performance Prediction
+
+Alice->Server:Register
+Server->Server: Validate user
+Server-->Alice: Valid
+Alice->Database: Submit Survey
+Server->Database:Get Student Data
+Database-->Server: Student Data
+Server->Server:Perform analysis on data
+Server-->Alice: Result
