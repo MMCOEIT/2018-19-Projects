@@ -1,0 +1,10 @@
+title Student Perfomance Prediction
+teacher->PredictionSystem:Login
+PredictionSystem-->teacher:Login Successful
+teacher->PredictionSystem:Get predictions
+PredictionSystem->Database:Get Student data
+Database-->PredictionSystem:Student data
+PredictionSystem->PredictionSystem:Perform academic analysis
+
+PredictionSystem->PredictionSystem:Generate report for teacher
+teacher<--PredictionSystem:Return Predictions
