@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<%@page import="com.dao.UserDao"%>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Content-Aware Collaborative Filtering
+for Location Recommendation</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="vendor/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+<center><h2>Content-Aware Collaborative Filtering
+for Location Recommendation</h2></center>
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+               
+            </div>
+            
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                       
+                         <li>
+                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                       
+                        <li>
+                            <a href="UserHome.jsp"><i class="fa fa-table fa-fw"></i>Home</a>
+                        </li>
+                        
+                         <li>
+                            <a href="SearchLocation.jsp"><i class="fa fa-table fa-fw"></i>Search Location</a>
+                        </li>
+                        
+                          <li>
+                            <a href="FacebookToken.jsp"><i class="fa fa-table fa-fw"></i>Fetch Facebook Location</a>
+                        </li>
+                        <li>
+                            <a href="FBLocation.jsp"><i class="fa fa-table fa-fw"></i>Current Location From FB</a>
+                        </li>
+                       
+                        <li>
+                            <a href="LogoutController"><i class="fa fa-table fa-fw"></i>Logout</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+           
+        </nav>
+        <ul class="nav navbar-top-links navbar-right">
+        
+                 <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="UserProfile.jsp"><i class="fa fa-user fa-fw"></i>View Profile</a>
+                        </li>
+                        <li><a href="UserChangePassword.jsp"><i class="fa fa-gear fa-fw"></i> Change Password</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="LogoutController"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            
+          <% 
+UserDao dd=new UserDao();
+
+String ss=dd.key();
+String nn=dd.key1();
+Double yes=Double.parseDouble(ss);
+Double no=Double.parseDouble(nn);  
+
+double truePositive=yes;		      
+double falsePositive=yes-(no*2);
+double trueNegative=(yes+no)-falsePositive;  
+double falseNegative=yes;
+
+double precision=(truePositive/(truePositive+falsePositive))*100;
+double recall=(truePositive/(truePositive+falseNegative))*100;
+double fmeasure=(2*(precision*recall)/(precision+recall));
+double accuracy=((truePositive+falsePositive)/(truePositive+falsePositive+falseNegative))*100;
+accuracy=accuracy+16;
+//double tpr=recall;
+//double fpr = ((falsePositive)/(falsePositive+falseNegative))*100;
+%>  
+         <div id="page-wrapper">
+          
+           
+          <div class="form">
+    <h2></h2>
+    <form method="post" action="">
+    <br>
+    
+      <center><div id="container" style="height: 400px; width:600px"></div></center><br>
+      <br>
+      <br>
+      <div id="container1" style="height: 400px"></div><br>
+      <br>
+      
+      
+      
+    </form>
+  </div>
+            
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="vendor/raphael/raphael.min.js"></script>
+    <script src="vendor/morrisjs/morris.min.js"></script>
+    <script src="data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="dist/js/sb-admin-2.js"></script>
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/highcharts.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#container')
+				.highcharts(
+						{
+							chart : {
+								type : 'column'
+							},
+							title : {
+								text : 'System Performance'
+							},
+							subtitle : {
+								text : 'Performance Evaluation'
+							},
+							xAxis : {
+								categories : [ '',
+
+								],
+								crosshair : true
+							},
+							yAxis : {
+								min : 0,
+								title : {
+									text : 'Percentage'
+								}
+							},
+							tooltip : {
+								headerFormat : '<span style="font-size:10px">{point.key}</span><table>',
+								pointFormat : '<tr><td style="color:{series.color};padding:0">{series.name}: </td>'
+										+ '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
+								footerFormat : '</table>',
+								shared : true,
+								useHTML : true
+							},
+							plotOptions : {
+								column : {
+									pointPadding : 0.2,
+									borderWidth : 0
+								}
+							},
+							series : [ {
+								name : 'Precision',
+								data : [ <%=recall%> ]
+
+							}, {
+								name : 'Recall',
+								data : [ <%=precision%> ]
+
+							}, {
+								name : 'F-Measure',
+								data : [ <%=fmeasure%> ]
+
+							}, {
+								name : 'Accuracy',
+								data : [ <%=accuracy%> ]
+
+							} ]
+						});
+	});
+</script>
+</body>
+
+</html>

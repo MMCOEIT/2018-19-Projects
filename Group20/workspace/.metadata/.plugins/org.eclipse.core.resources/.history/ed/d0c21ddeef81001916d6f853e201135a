@@ -1,0 +1,70 @@
+package com.algorithm;
+
+import java.io.IOException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import com.bean.DistanceBean;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+public class Baseline {
+	
+
+String Distance=null;
+String Duration=null;
+	
+    OkHttpClient client = new OkHttpClient();
+    DistanceBean bean=new DistanceBean();
+    
+   public DistanceBean calculate(String s,String d) throws IOException {
+	
+            String url="https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='"+s+"'&destinations='"+d+"'&key=AIzaSyB5dZ8FFcdJJ6aV5qxDrqTUwWo6asURpuY";
+            
+            Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+            Response response = client.newCall(request).execute();
+            
+            String hello=response.body().string();
+            
+            System.out.println(hello);
+            
+            JSONParser parser = new JSONParser();
+            
+            try {
+
+             Object obj = parser.parse(hello);
+             JSONObject jsonobj=(JSONObject)obj;
+
+             JSONArray dist=(JSONArray)jsonobj.get("rows");
+             JSONObject obj2 = (JSONObject)dist.get(0);
+             JSONArray disting=(JSONArray)obj2.get("elements");
+             JSONObject obj3 = (JSONObject)disting.get(0);
+             JSONObject obj4=(JSONObject)obj3.get("distance");
+             JSONObject obj5=(JSONObject)obj3.get("duration");
+             
+             System.out.println("Distance:"+obj4.get("text"));
+             System.out.println("Duration:"+obj5.get("text"));
+             
+            Distance=(String) obj4.get("text");
+             Duration=(String) obj5.get("text");
+             
+           
+             bean.setDistance(Distance);
+             bean.setTime(Duration);
+             
+        }
+    catch(Exception e) {
+        e.printStackTrace();
+    }
+			return bean;
+			
+		
+          }
+
+}

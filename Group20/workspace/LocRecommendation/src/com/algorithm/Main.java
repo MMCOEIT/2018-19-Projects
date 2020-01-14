@@ -1,0 +1,111 @@
+package com.algorithm;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
+import org.dom4j.tree.DefaultAttribute;
+import com.dao.UserDao;
+import com.connection.DBConnection;
+import com.restfb.Connection;
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.FacebookClient.AccessToken;
+import com.restfb.types.Comment;
+import com.restfb.types.Page;
+import com.restfb.types.Place;
+import com.restfb.types.Post;
+import com.restfb.types.Post.Likes;
+import com.restfb.types.User;
+import com.restfb.types.Post.Comments;
+import java.sql.PreparedStatement;
+
+public class Main {
+	 UserDao db=new UserDao();
+	public String getdata(String token, String Name) throws SQLException {
+		String interest = "";
+		try {
+			aho ahocorasick = new aho();
+			String allnewdata;
+			String msgval = "";
+			String postval = "";
+
+			String access = token;
+			String preference = "";
+			String msgvaluenew = "";
+			String postnewval = "";
+
+			System.out.println("access>>>>>>>>>>>>" + access);
+			FacebookClient Fb = new DefaultFacebookClient(access);
+
+			Connection<Post> myFeed = Fb.fetchConnection("me/feed", Post.class);
+
+			Iterator<List<Post>> it = myFeed.iterator();
+			ArrayList<String> msg = new ArrayList<String>();
+
+			ArrayList<String> alldata = new ArrayList<String>();
+			db.TruncateTable();
+			while (it.hasNext()) {
+				List<Post> myFeedPage = it.next();
+
+				// This is the same functionality as the example above
+				
+				for (Post post : myFeedPage) {
+					
+					System.out.println("Message: " + post.getMessage());
+					System.out.println("Likes: " + post.getLikes());
+					System.out.println("Comments: " + post.getComments());
+					System.out.println("Id: " + post.getId());
+					System.out.println("Time: " + post.getCreatedTime());
+					System.out.println("Checkins: " + post.getPlace());
+					System.out.println("Caption  : " + post.getCaption());
+					System.out.println("place  : " + post.getName());
+
+					String newpost = post.getName();
+					String msgdata = post.getMessage();
+					// Likes like=post.getLikes();
+
+					Comments comments = post.getComments();
+					String Date = post.getCreatedTime().toString();
+					String Caption = post.getCaption();
+					Place place = post.getPlace();
+
+				
+					msg.add(msgdata);
+			
+					System.out.println("CHECK IN Place>>>>>>>>>>>>>>>>>>>>" + msg);
+					
+					String query = "insert into tbl_fbdata(id,email,msg,time)values(?,?,?,?)";
+
+					java.sql.Connection con = DBConnection.getConnection();
+					PreparedStatement pst = con.prepareStatement(query);
+
+					pst.setInt(1, 0);
+					pst.setString(2, Name);
+					pst.setString(3, msgdata);
+					pst.setString(4, Date);
+					int j = pst.executeUpdate();
+					if (j > 0) {
+						System.out.println("query done..");
+					} else {
+						System.out.println("query fail..");
+					}
+
+				}
+			}
+
+			for (String msgvalue : msg) {
+				msgvaluenew = msgvaluenew + msgvalue;
+			}
+			
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		return interest;
+	}
+}
